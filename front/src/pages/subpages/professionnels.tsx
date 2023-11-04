@@ -7,7 +7,7 @@ export default function Professionnels({
 }: {
   users: globalUserProps[];
 }) {
-  return (    
+  return (
     <>
       {users.length !== 0 ? (
         users.map((user) => <Card user={user} key={user.id} />)

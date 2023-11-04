@@ -17,8 +17,8 @@ import Need from "./pages/Need.tsx";
 import Acceuil from "./pages/Accueil.tsx";
 
 function isAuthenticated() {
-  const userId = localStorage.getItem('userId'); // Récupérez l'ID de l'utilisateur à partir du local storage
-  const userEmail = localStorage.getItem('userEmail'); // Récupérez l'e-mail de l'utilisateur à partir du local storage
+  const userId = localStorage.getItem("userId"); // Récupérez l'ID de l'utilisateur à partir du local storage
+  const userEmail = localStorage.getItem("userEmail"); // Récupérez l'e-mail de l'utilisateur à partir du local storage
 
   // Vérifiez si l'utilisateur est connecté en fonction des valeurs récupérées du local storage
   return userId && userEmail;
@@ -35,19 +35,23 @@ const router = createBrowserRouter(
         <Route path="accueil" element={<Acceuil />} />
         <Route path="register" element={<Register />} />
         <Route path="login" element={<Login />} />
-        <Route index
+        <Route
+          index
           element={
-            isAuthenticated() ? <Navigate to={"feed/actualites"} /> : <Navigate to="/login" />
+            isAuthenticated() ? (
+              <Navigate to={"feed/actualites"} />
+            ) : (
+              <Navigate to="/login" />
+            )
           }
         ></Route>
-        <Route path="feed"
-          element={
-            isAuthenticated() ? <Profil /> : <Navigate to="/login" />
-          }
+        <Route
+          path="feed"
+          element={isAuthenticated() ? <Profil /> : <Navigate to="/login" />}
         >
           <Route path="actualites" element={<Profil />} />
           <Route path="besoins" element={<Profil />} />
-          <Route path="suivis" element={<Profil />} >
+          <Route path="suivis" element={<Profil />}>
             <Route path="abonnes" element={<Profil />} />
             <Route path="abonnements" element={<Profil />} />
           </Route>
@@ -63,11 +67,11 @@ const router = createBrowserRouter(
           <Route path="chercheur" element={<Search />} />
           <Route path="industriel" element={<Search />} />
         </Route>
-        <Route path="besoin" element={
-            isAuthenticated() ? <Need /> : <Navigate to="/login" />
-          }
-        />            
-        
+        <Route
+          path="besoin"
+          element={isAuthenticated() ? <Need /> : <Navigate to="/login" />}
+        />
+
         {/*}
           <Route path="infrastructures" element={<Search />}>
             <Route path="sante" element={<Search />} />
@@ -75,10 +79,9 @@ const router = createBrowserRouter(
             <Route path="industriel" element={<Search />} />
           </Route> */}
         {/* </Route> */}
-        <Route path="user/:id"
-          element={
-            isAuthenticated() ? <User /> : <Navigate to="/login" />
-          }
+        <Route
+          path="user/:id"
+          element={isAuthenticated() ? <User /> : <Navigate to="/login" />}
         />
       </Route>
     </Route>

@@ -52,19 +52,20 @@ export default function ProfilFeed() {
     <div className="flex flex-col gap-4">
       <div className="bg-white p-4 rounded-lg">
         {pathname.split("/")[2] === "besoins" && (
-          <div className="flex flex-col items-start justify-center w-full mt-2">
+          <div className="flex flex-col items-center w-full mt-2">
             <h3 className="text-sm pb-1">Mes besoins</h3>
             <span className="w-[50px] bg-primary-300 rounded h-1"></span>
-            <div className="text-xxs flex flex-wrap my-2 w-full gap-8">
+            <div className="text-xxs flex flex-wrap my-2 w-full gap-8 h-[50vh] overflow-scroll rounded-lg">
               {userNeed !== undefined && userNeed.length === 0 ? (
                   <p className="text-xs p-2 bg-gray-100 rounded w-full mt-2">Vous n'avez pas de besoins pour l'instant.</p>
                 ) : (
-                  userNeed.map((need) => (
+                  [...userNeed].reverse().map((need) => (
                   
                   <Need key={need.id} need={need} userId={need.user.id} onDelete={(id) => handleDelete(id)}/>
                     
               )))}
             </div>
+            <AddNeed />
           </div>
         )}
         {pathname.split("/")[2] === "suivis" && (

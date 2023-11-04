@@ -65,9 +65,9 @@ export default function Need() {
     createNeed(CURRENT_USER, needData)
       .then((_data) => {
         navigate(0);
-      }).then(() => {
+      })
+      .then(() => {
         setMessage("Votre besoin a été créé avec succès");
-
       })
       .catch((error) => {
         console.error(error);
@@ -95,25 +95,25 @@ export default function Need() {
       })
     : "";
 
-  return( 
+  return (
     <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py- ">
       <div className="relative py-3 sm:max-w-xl sm:mx-auto w-1/4">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-3 sm:rounded-3xl"></div>
         <div className="relative px-4 py-10 overflow-hidden bg-white shadow-lg sm:rounded-3xl sm:p-20 ">
-            <div>
-              <h1 className="text-2xl font-semibold">Exprimer un besoin </h1>
-            </div>          
-            {errorMessage && (
-              <div className="text-red-400 text-sm mb-4">{errorMessage}</div>
-            )}
-            {!errorMessage && message && (
-              <div className="text-primary-400 text-sm mb-4">{message}</div>
-            )}
-            <div
+          <div>
+            <h1 className="text-2xl font-semibold">Exprimer un besoin </h1>
+          </div>
+          {errorMessage && (
+            <div className="text-red-400 text-sm mb-4">{errorMessage}</div>
+          )}
+          {!errorMessage && message && (
+            <div className="text-primary-400 text-sm mb-4">{message}</div>
+          )}
+          <div
             className="flex flex-col gap-8 bg-white rounded-lg relative "
             id="add-need"
-            >
+          >
             <div
               className="flex justify-between items-center w-full rounded-lg p-4"
               onClick={toggleFormVisibility}
@@ -129,7 +129,7 @@ export default function Need() {
                 />
               </div> */}
             </div>
-            
+
             <div className="flex flex-col gap-2 px-4 pb-4">
               <FormInput
                 id="title"
@@ -160,7 +160,7 @@ export default function Need() {
                 >
                   Rôle
                 </label>
-              </div> */}              
+              </div> */}
               <FormInput
                 id="infrastructure"
                 type="text"
@@ -176,10 +176,12 @@ export default function Need() {
                 setValue={setDescription}
               />
               <div className="flex flex-col items-start justify-center mb-4">
-                {tags.length >0 ? (<h3 className="text-sm text-gray-400">Tags</h3>):('')}  
-                
-                
-                
+                {tags.length > 0 ? (
+                  <h3 className="text-sm text-gray-400">Tags</h3>
+                ) : (
+                  ""
+                )}
+
                 <div className="text-xxs flex flex-wrap mt-2">
                   {tags.map((tag) => (
                     <span
@@ -231,12 +233,9 @@ export default function Need() {
                 </button>
               </div>
             </div>
-          
-            </div>
-          
+          </div>
         </div>
       </div>
     </div>
-
-);
+  );
 }

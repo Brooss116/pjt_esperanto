@@ -22,6 +22,6 @@ def search_word_in_directory(directory_path, word_to_search):
                     print(f"Le mot '{word_to_search}' a été trouvé dans {file_path}")
 
 # Exemple d'utilisation
-directory_path = './src/css'  # Remplacez par le chemin de votre choix
-word_to_search = 'scrollbar'  # Remplacez par le mot que vous recherchez
+directory_path = '.'  # Remplacez par le chemin de votre choix
+word_to_search = 'Mes besoins'  # Remplacez par le mot que vous recherchez
 search_word_in_directory(directory_path, word_to_search)

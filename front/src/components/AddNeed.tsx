@@ -89,17 +89,17 @@ export default function AddNeed() {
 
   return (
     <div
-      className="flex flex-col gap-8 justify-start bg-white border border-solid rounded-lg relative hover:border hover:border-1 hover:border-primary-400 cursor-pointer"
+      className="flex flex-col gap-8 justify-start bg-white my-5 border border-solid rounded-lg relative hover:border hover:border-1 hover:border-primary-400 cursor-pointer "
       id="add-need"
     >
       <div
-        className="flex justify-between items-center w-full rounded-lg p-4"
+        className="flex items-center justify-between w-full rounded-lg p-4 "
         onClick={toggleFormVisibility}
       >
-        <h3 className="text-sm pb-1">Ajouter un besoin</h3>
-        <div className="flex justify-center items-center w-[35px] h-[35px] rounded-full cursor-pointer">
+        <h3 className="text-sm pb-1  ">Ajouter un besoin</h3>
+        <div className="flex justify-center items-center w-[35px] h-[35px] rounded-full ">
           <img
-            className="w-[30px] h-[30px]"
+            className="w-[30px] h-[30px] "
             src={
               isFormVisible ? "/src/assets/minus.png" : "/src/assets/plus.png"
             }

@@ -31,21 +31,6 @@ Tout d'abord, vous devez installer globalement les dépendances suivantes :
 - [Node.js](https://nodejs.org/en/) (v18.x.x)
 - [Mysql] (test.com) (latest)
 
-# Importation du projet
-
-Clone du repot 
-
-```bash
-
-git clone https://github.com/Brooss116/pjt_esperanto.git
-
-```
-Rentre dans le repertoire du projet 
-
-```bash
-
-cd pjt_esperanto
-```
 
 # Lancement Esperanto Backend
 
@@ -82,7 +67,7 @@ Créer un fichier d'environnement `back/.env`
 
 ```bash
 touch .env
-open .env
+open.env
 ```
 
 Et y ajouter ces variables :
@@ -131,11 +116,11 @@ npm run dev-windows
 
 ## Installation
 
-Rentrer dans le repertoire `/front` :
+Aller dans `front/` :
 
 ```bash
 
-cd front
+cd ../front
 ```
 
 

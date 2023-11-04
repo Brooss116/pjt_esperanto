@@ -10,8 +10,8 @@ import { HEALTH_ACTOR_SEARCH } from "../components/gql/HealthActorSearch";
 import { INDUSTRIAL_SEARCH } from "../components/gql/IndustrialSearch";
 import { RESEARCHER_SEARCH } from "../components/gql/ResearcherSearch";
 import { getSearchedUser } from "../components/apolloClient/Queries";
-import AddButton from "../components/AddButton";
-import {  useEffect,  useState } from "react";
+// import AddButton from "../components/AddButton";
+import { useEffect, useState } from "react";
 
 type Tags = "healthActor" | "researcher" | "industrial" | "";
 
@@ -60,28 +60,28 @@ export default function Search() {
     getSearchedUser(queries[tag ? tag : "default"], input).then((result) => {
       switch (tag) {
         case "healthActor":
-          setErrorMessage('');
+          setErrorMessage("");
           setUsers(result.healthActorsBySearch.rows);
           setAllUsers(result.healthActorsBySearch.rows);
           setNoResult(result.healthActorsBySearch.count === 0);
           console.log(result.healthActorsBySearch.rows);
           break;
         case "researcher":
-          setErrorMessage('');
+          setErrorMessage("");
           setUsers(result.researchersBySearch.rows);
           setAllUsers(result.researchersBySearch.rows);
           setNoResult(result.researchersBySearch.count === 0);
           console.log(result.researchersBySearch.rows);
           break;
         case "industrial":
-          setErrorMessage('');
+          setErrorMessage("");
           setUsers(result.industrialsBySearch.rows);
           setAllUsers(result.industrialsBySearch.rows);
           setNoResult(result.industrialsBySearch.count === 0);
           console.log(result.industrialsBySearch.rows);
           break;
         default:
-          setErrorMessage('Veuillez choisir une catégorie');
+          setErrorMessage("Veuillez choisir une catégorie");
           setUsers(result.users);
           setAllUsers(result.users);
           setNoResult(result.users.length === 0);
@@ -140,7 +140,9 @@ export default function Search() {
           ))}
         </div>
         <div className="p-3">
-        <div className="flex items-center justify-center pb-2">{errorMessage}</div>
+          <div className="flex items-center justify-center pb-2">
+            {errorMessage}
+          </div>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -159,9 +161,8 @@ export default function Search() {
               value="Rechercher"
               className="!w-1/5 !bg-primary"
             />
-          
           </form>
-          
+
           <div className=" px-12 mt-24 w-full">
             {noResult ? (
               <h2 className="text-2xl text-center">Aucun résultat</h2>
@@ -172,7 +173,7 @@ export default function Search() {
             )}
           </div>
         </div>
-        <AddButton />
+        {/* <AddButton /> */}
       </div>
     </>
   );
