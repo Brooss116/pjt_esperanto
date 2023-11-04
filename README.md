@@ -120,7 +120,7 @@ Rentrer dans le repertoire `/front` :
 
 ```bash
 
-cd /front
+cd front
 ```
 
 
