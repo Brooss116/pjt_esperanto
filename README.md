@@ -31,6 +31,21 @@ Tout d'abord, vous devez installer globalement les dépendances suivantes :
 - [Node.js](https://nodejs.org/en/) (v18.x.x)
 - [Mysql] (test.com) (latest)
 
+# Importation du projet
+
+Clone du repot 
+
+```bash
+
+git clone https://github.com/Brooss116/pjt_esperanto.git
+
+```
+Rentre dans le repertoire du projet 
+
+```bash
+
+cd pjt_esperanto
+```
 
 # Lancement Esperanto Backend
 
