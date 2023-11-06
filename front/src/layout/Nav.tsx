@@ -2,7 +2,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import profil from "../assets/profile.svg";
 import { useState } from "react";
 import Logo from "../components/Logo";
-import FormInput from "../components/FormInput";
+// import FormInput from "../components/FormInput";
 
 export default function Nav() {
   const navigate = useNavigate();
@@ -132,9 +132,9 @@ export default function Nav() {
                   switch (currentPath) {
                     case "/besoin":
                       return "flex items-center bg-primary text-white";
-                    case "/professionnels/industriel":
+                    case "/exprimer-besoin":
                       return "flex items-center bg-primary text-white";
-                    case "/professionnels/chercheur":
+                    case "/repondre-besoin":
                       return "flex items-center bg-primary text-white";
                     default:
                       return "flex items-center hover:bg-primary-hover";
@@ -166,7 +166,7 @@ export default function Nav() {
             >
               <li className="mx-1 w-full">
                 <NavLink
-                  to="/professionnels/sante"
+                  to="/besoin"
                   className={({ isActive }) =>
                     isActive
                       ? "bg-primary text-white w-full"
@@ -192,7 +192,7 @@ export default function Nav() {
 
               <li className="mx-1 w-full">
                 <NavLink
-                  to="/professionnels/chercheur"
+                  to="/besoin"
                   className={({ isActive }) =>
                     isActive
                       ? "bg-primary text-white w-full"
