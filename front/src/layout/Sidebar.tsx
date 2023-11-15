@@ -52,7 +52,7 @@ export default function Sidebar({
         <img src={filters} alt="" className="!w-4 mr-4" />
         Filtres
       </h2>
-      <div className="hover:bg-primary-hover hover:rounded ">
+      <div className="hover:bg-primary-hover hover:rounded py-1 ">
         <label htmlFor="reset" className="flex items-center cursor-pointer">
           <img src={trash} alt="" className="!w-4 mr-4" />
           Effacer les filtres
