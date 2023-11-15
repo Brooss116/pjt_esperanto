@@ -27,7 +27,7 @@ export default function Nav() {
 
   // const submit = useSubmit();
   return (
-    <div className="flex flex-col top-0 left-0 z-10 fixed w-full">
+    <div className="flex flex-col top-0 left-0 z-10 fixed w-full ">
       <div className="flex justify-end items-center bg-gray-200 h-8">
         {isAuthenticated() ? (
           <div className="flex gap-2 text-[16px] pr-8">

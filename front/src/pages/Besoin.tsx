@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import FormInput from "../components/FormInput";
 import { getAllTags } from "../components/apolloClient/Queries";
 import { createNeed } from "../components/apolloClient/Mutations";
-import { CURRENT_USER } from "../components//loggedUser/userLoged";
+import { CURRENT_USER } from "../components/loggedUser/userLoged";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export interface Tag {
@@ -96,11 +96,11 @@ export default function Need() {
     : "";
 
   return (
-    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py- ">
-      <div className="relative py-3 sm:max-w-xl sm:mx-auto w-1/4">
+    <div className="bg-gray-100 py-6 flex flex-col justify-center sm:py- ">
+      <div className="relative py-3 sm:max-w-xl sm:mx-auto w-1/4 ">
         <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-3 sm:rounded-3xl"></div>
-        <div className="relative px-4 py-10 overflow-hidden bg-white shadow-lg sm:rounded-3xl sm:p-20 ">
+        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20 ">
           <div>
             <h1 className="text-2xl font-semibold">Exprimer un besoin </h1>
           </div>
@@ -177,52 +177,53 @@ export default function Need() {
               />
               <div className="flex flex-col items-start justify-center mb-4">
                 {tags.length > 0 ? (
-                  <h3 className="text-sm text-gray-400">Tags</h3>
+                  <h3 className="text-sm text-gray-400">Domaine d'expertise requis</h3>
                 ) : (
                   ""
                 )}
-
                 <div className="text-xxs flex flex-wrap mt-2">
                   {tags.map((tag) => (
-                    <span
-                      key={tag.id}
-                      className="bg-primary-100 rounded py-0.5 px-1 m-0.5"
-                    >
-                      {tag.name}
-                    </span>
-                  ))}
+                      <span
+                        key={tag.id}
+                        className="bg-primary-100 rounded py-0.5 px-1 m-0.5"
+                      >
+                        {tag.name}
+                      </span>
+                    ))}
+                  {isSelectTagOpen && (
+                    <div>
+                      <select
+                        className="block w-full p-2 mt-1 border border-gray-300 rounded-md focus:ring text-[14px]"
+                        value={""}
+                        onChange={(e) => {
+                          const selectedTagId = e.target.value;
+                          const tag = allTags.find(
+                            (tag) => tag.id == parseInt(selectedTagId)
+                          );
+                          if (tag) {
+                            handleTagSelection(tag);
+                          }
+                        }}
+                      >
+                        <option value="">-- Sélectionnez un domaine d'expertise --</option>
+                        {allTags.map((tag) => (
+                          <option key={tag.id} value={tag.id}>
+                            {tag.name}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )}
+                  
                   <a
                     href="#"
                     className="text-primary hover:font-semibold mt-[3px] py-0.5 px-1 m-0.5"
                     onClick={toggleSelectVisibility}
                   >
-                    Ajouter un tag
+                    Ajouter un domaine d'expertise
                   </a>
                 </div>
-                {isSelectTagOpen && (
-                  <div>
-                    <select
-                      className="block w-full p-2 mt-1 border border-gray-300 rounded-md focus:ring text-[14px]"
-                      value={""}
-                      onChange={(e) => {
-                        const selectedTagId = e.target.value;
-                        const tag = allTags.find(
-                          (tag) => tag.id == parseInt(selectedTagId)
-                        );
-                        if (tag) {
-                          handleTagSelection(tag);
-                        }
-                      }}
-                    >
-                      <option value="">-- Sélectionnez un tag --</option>
-                      {allTags.map((tag) => (
-                        <option key={tag.id} value={tag.id}>
-                          {tag.name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                )}
+              
               </div>
               <div className="pt-4 flex items-center space-x-4">
                 <button
