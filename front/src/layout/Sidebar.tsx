@@ -112,7 +112,7 @@ export default function Sidebar({
             dispatch({ props: { rotate90: !state.props.rotate90 } })
           }
         >
-          Zone de 
+          Ville d'exercice 
           <img
             src={arrow}
             alt=""
