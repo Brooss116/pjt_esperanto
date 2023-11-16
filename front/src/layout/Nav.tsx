@@ -8,6 +8,7 @@ export default function Nav() {
   const navigate = useNavigate();
   const [openA, setOpenA] = useState(false);
   const [openN, setOpenN] = useState(false);
+  const [openProfil, setOpenProfil] = useState(false);
 
   function isAuthenticated() {
     const userId = localStorage.getItem("userId"); // Récupérez l'ID de l'utilisateur à partir du local storage
@@ -28,45 +29,35 @@ export default function Nav() {
   // const submit = useSubmit();
   return (
     <div className="flex flex-col top-0 left-0 z-10 fixed w-full ">
-      <div className="flex justify-end items-center bg-gray-200 h-8">
-        {isAuthenticated() ? (
-          <div className="flex gap-2 text-[16px] pr-8">
-            <div className="cursor-pointer">Vous êtes connecté !</div>
-            <div className="cursor-pointer">
-              Bonjour {localStorage.getItem("userFirstname")}{" "}
-              {localStorage.getItem("userLastname")}{" "}
-            </div>
-            <span>|</span>
-            <div className="cursor-pointer" onClick={() => removeSession()}>
-              Se deconnecter
-            </div>
-          </div>
-        ) : (
-          <div className="flex gap-2 text-[14px] pr-8">
-            <div className="cursor-pointer">
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive ? "bg-primary text-white p-2" : "p-2"
-                }
-              >
-                Se connecter
-              </NavLink>
-            </div>
-            <span>|</span>
-            <div className="cursor-pointer">
-              <NavLink
-                to="/register"
-                className={({ isActive }) =>
-                  isActive ? "bg-primary text-white p-2" : "h-full w-full p-2"
-                }
-              >
-                S'enregistrer
-              </NavLink>
+      
+        {isAuthenticated() ? ("") : (
+          <div className="flex justify-end items-center bg-gray-200 h-8">
+            <div className="flex gap-2 text-[14px] pr-8">
+              <div className="cursor-pointer">
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive ? "bg-primary text-white p-2" : "p-2"
+                  }
+                >
+                  Se connecter
+                </NavLink>
+              </div>
+              <span>|</span>
+              <div className="cursor-pointer">
+                <NavLink
+                  to="/register"
+                  className={({ isActive }) =>
+                    isActive ? "bg-primary text-white p-2" : "h-full w-full p-2"
+                  }
+                >
+                  S'enregistrer
+                </NavLink>
+              </div>
             </div>
           </div>
         )}
-      </div>
+      
       <nav className="px-4 top-0 left-0 bg-white">
         <ul>
           <li>
@@ -77,50 +68,6 @@ export default function Nav() {
         </ul>
 
         <nav className=" flex items-center gap-4">
-          {/* <ul>
-            <li className="mx-1">
-              <FormInput
-                method="POST"
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  submit(e.currentTarget, {
-                    method: "post",
-                    action: "/search",
-                  });
-                          }}
-                          className="m-0"
-              >
-                <input
-                  type="search"
-                  name="search"
-                  id="search"
-                  className="!h-10"
-                  placeholder="Rechercher..."
-                />
-              </FormInput>
-            </li>
-          </ul>  <ul> 
-            <li className="mx-1">
-              <NavLink
-                to="/besoin"
-                className={({ isActive }) =>
-                  isActive ? "bg-primary text-white" : "hover:bg-primary-hover"
-                }
-              >
-                Besoins
-              </NavLink>
-            </li>
-            {/* <li className="mx-1">
-              <NavLink
-                to="/search/infrastructures"
-                className={({ isActive }) =>
-                  isActive ? "bg-primary text-white" : ""
-                }
-              >
-                Infrastructures
-              </NavLink>
-            </li> 
-          </ul> */}
 
           <div onMouseLeave={() => setOpenN(false)} className="relative">
             <div onMouseOver={() => setOpenN(true)} className="">
@@ -288,10 +235,27 @@ export default function Nav() {
             </ul>
           </div>
 
-          <div>
-            <Link to="/">
-              <img src={profil} alt="" className="w-4" />
-            </Link>
+          <div onMouseLeave={() => setOpenProfil(false)} className="relative">
+            <div onMouseOver={() => setOpenProfil(true)} className="">
+                <div className="p-3 hover:bg-primary-hover">
+                  <img src ={profil} alt="" className="w-4" />
+                </div>
+            </div>
+            <div
+                className={`absolute right-0 w-96 h-96 py-2 mt-2 rounded-xl shadow-xl bg-white border-2 ${
+                  openProfil ? "block" : "hidden"
+                }`}
+              >
+                
+              <div className="p-4 flex justify-center">
+                <div className="text-xs">
+                  {localStorage.getItem("userEmail")}
+                </div>
+                
+              </div>
+                
+
+            </div>
           </div>
         </nav>
       </nav>

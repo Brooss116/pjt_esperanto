@@ -18,7 +18,7 @@ export default function FormInput(props: FormInputProps) {
                     name={id}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    className="h-20 shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600 text-sm"
+                    className="h-20 shadow-none peer h-[20vh] placeholder-transparent resize-none leading-6 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600 text-sm"
                     placeholder={label}
                     cols={16}
                     autoComplete="off"
@@ -30,7 +30,7 @@ export default function FormInput(props: FormInputProps) {
                     type={type}
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                    className="shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600 text-sm"
+                    className="shadow-none peer placeholder-transparent w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600 text-sm"
                     placeholder={label}
                     autoComplete="off"
                 />
