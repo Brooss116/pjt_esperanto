@@ -1,14 +1,23 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import profil from "../assets/profile.svg";
-import { useState } from "react";
+import { useState,useEffect, useRef} from "react";
 import Logo from "../components/Logo";
+import { globalUserProps } from "../utils/types";
+import { CURRENT_USER } from "../components/loggedUser/userLoged";
+import { getUserById } from "../components/apolloClient/Queries";
+
+
+
 // import FormInput from "../components/FormInput";
 
 export default function Nav() {
+  const [user, setUser] = useState<globalUserProps>();
+
   const navigate = useNavigate();
   const [openA, setOpenA] = useState(false);
   const [openN, setOpenN] = useState(false);
   const [openProfil, setOpenProfil] = useState(false);
+  const profileRef = useRef<HTMLDivElement>(null);
 
   function isAuthenticated() {
     const userId = localStorage.getItem("userId"); // Récupérez l'ID de l'utilisateur à partir du local storage
@@ -26,9 +35,48 @@ export default function Nav() {
     window.location.reload();
   }
 
+  
+
+
+
+
+  function handleClickOutside(event: MouseEvent) {
+    if (profileRef.current && !profileRef.current.contains(event.target as Node)) {
+      // Check if the clicked element is the profile icon
+      if (event.target !== profileRef.current.firstChild?.nextSibling ) {
+        setOpenProfil(false);
+      }
+    }
+  }
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
+    getUserById(CURRENT_USER)
+      .then((userData) => {
+        setUser(userData);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+    
+  
+
+
+
+
+
+
   // const submit = useSubmit();
   return (
-    <div className="flex flex-col top-0 left-0 z-10 fixed w-full ">
+    <div onClick={()=>setOpenProfil(true)}className="flex flex-col top-0 left-0 z-10 fixed w-full ">
       
         {isAuthenticated() ? ("") : (
           <div className="flex justify-end items-center bg-gray-200 h-8">
@@ -235,26 +283,61 @@ export default function Nav() {
             </ul>
           </div>
 
-          <div onMouseLeave={() => setOpenProfil(false)} className="relative">
-            <div onMouseOver={() => setOpenProfil(true)} className="">
-                <div className="p-3 hover:bg-primary-hover">
-                  <img src ={profil} alt="" className="w-4" />
-                </div>
-            </div>
-            <div
-                className={`absolute right-0 w-96 h-96 py-2 mt-2 rounded-xl shadow-xl bg-white border-2 ${
-                  openProfil ? "block" : "hidden"
-                }`}
+          <div  className="relative">
+            {openProfil ? (<div ref={profileRef}  className="">
+                  <div className="p-3 hover:bg-primary-hover">
+                    <img src ={profil} alt="" className="w-4" />
+                  </div>
+              </div>)
+              :
+              (<div   onClick={() => setOpenProfil(true)}  className="">
+                  <div className="p-3 cursor-pointer hover:bg-primary-hover">
+                    <img src ={profil} alt="" className="w-4" />
+                  </div>
+              </div>)
+            }
+            
+            <div  >
+              <div 
+                  className={`absolute right-0 w-96 py-2 mt-2 rounded-xl shadow-xl bg-gray-200 border-2 ${
+                    openProfil ? "block" : "hidden"
+                  }`
+                  }
               >
-                
-              <div className="p-4 flex justify-center">
-                <div className="text-xs">
-                  {localStorage.getItem("userEmail")}
+                  
+                <div className="p-4 flex justify-between">                  
+                  <div className="text-xs font-semibold">
+                    {localStorage.getItem("userEmail")}
+                  </div>                             
                 </div>
-                
-              </div>
+                <div className="p-4 flex justify-">                  
+                  <div className="text-xs font-semibold">
+                    {localStorage.getItem("userEmail")}
+                  </div>                             
+                </div>
+                <div className="pt-8 flex justify-center "> 
+                  <img
+                    src={user?.profilePicture ?? "/public/test.png"}
+                    alt=""
+                    className="rounded-full w-24 h-24 border-2 border-solid border-black -mt-10"
+                  />   
+                </div>
+              
+                  
+                <div className="flex justify-center">
+                  <div className="text-lg font-semibold">
+                    Bonjour, {localStorage.getItem("userFirstname")} !
+                  </div>
+                </div>
+
+                <div className=" flex justify-center bottom-0">
+                  <div className=" cursor-pointer w-1/2 hover:bg-primary-hover text-center rounded-lg" onClick={() => removeSession()}>
+                    Se deconnecter
+                  </div>
+                </div>
                 
 
+              </div>
             </div>
           </div>
         </nav>
