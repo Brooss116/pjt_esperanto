@@ -5,6 +5,7 @@ import Logo from "../components/Logo";
 import { globalUserProps } from "../utils/types";
 import { CURRENT_USER } from "../components/loggedUser/userLoged";
 import { getUserById } from "../components/apolloClient/Queries";
+import cross from "../assets/cross.svg";
 
 
 
@@ -76,7 +77,7 @@ export default function Nav() {
 
   // const submit = useSubmit();
   return (
-    <div onClick={()=>setOpenProfil(true)}className="flex flex-col top-0 left-0 z-10 fixed w-full ">
+    <div className="flex flex-col top-0 left-0 z-10 fixed w-full ">
       
         {isAuthenticated() ? ("") : (
           <div className="flex justify-end items-center bg-gray-200 h-8">
@@ -284,60 +285,82 @@ export default function Nav() {
           </div>
 
           <div  className="relative">
-            {openProfil ? (<div ref={profileRef}  className="">
+            {isAuthenticated() ? 
+              (
+                <div>
+                  {openProfil ? (
+                    <div ref={profileRef}  className="">
+                        <div className="p-3 hover:bg-primary-hover">
+                          <img src ={profil} alt="" className="w-4" />
+                        </div>
+                    </div>)
+                    :
+                    ( <div ref={profileRef} onClick={() => setOpenProfil(true)}  className="">
+                        <div className="p-3 cursor-pointer hover:bg-primary-hover">
+                          <img src ={profil} alt="" className="w-4" />
+                        </div>
+                      </div>)}
+                </div>
+              ) : (
+                
+                <div  className="">
                   <div className="p-3 hover:bg-primary-hover">
-                    <img src ={profil} alt="" className="w-4" />
-                  </div>
-              </div>)
-              :
-              (<div   onClick={() => setOpenProfil(true)}  className="">
-                  <div className="p-3 cursor-pointer hover:bg-primary-hover">
-                    <img src ={profil} alt="" className="w-4" />
-                  </div>
-              </div>)
-            }
-            
-            <div  >
-              <div 
-                  className={`absolute right-0 w-96 py-2 mt-2 rounded-xl shadow-xl bg-gray-200 border-2 ${
-                    openProfil ? "block" : "hidden"
-                  }`
-                  }
-              >
-                  
-                <div className="p-4 flex justify-between">                  
-                  <div className="text-xs font-semibold">
-                    {localStorage.getItem("userEmail")}
-                  </div>                             
-                </div>
-                <div className="p-4 flex justify-">                  
-                  <div className="text-xs font-semibold">
-                    {localStorage.getItem("userEmail")}
-                  </div>                             
-                </div>
-                <div className="pt-8 flex justify-center "> 
-                  <img
-                    src={user?.profilePicture ?? "/public/test.png"}
-                    alt=""
-                    className="rounded-full w-24 h-24 border-2 border-solid border-black -mt-10"
-                  />   
-                </div>
-              
-                  
-                <div className="flex justify-center">
-                  <div className="text-lg font-semibold">
-                    Bonjour, {localStorage.getItem("userFirstname")} !
+                    <NavLink to="/login"><img src ={profil} alt="" className="w-4" /></NavLink>
                   </div>
                 </div>
 
-                <div className=" flex justify-center bottom-0">
-                  <div className=" cursor-pointer w-1/2 hover:bg-primary-hover text-center rounded-lg" onClick={() => removeSession()}>
-                    Se deconnecter
+              ) 
+
+            }
+            
+            <div  
+              
+                  className={`absolute right-0 w-96 mt-2 rounded-xl shadow-xl bg-gray-200 p-2 ${
+                    openProfil ? "block" : "hidden"
+                  }`
+                  }
+            >
+                <div className="flex flex-col">         
+                  
+                  <div className="pb-6 flex justify-between items-center">  
+                    <div className="text-xs font-semibold w-6"></div>                  
+                    <div className="text-xs font-semibold">
+                      {localStorage.getItem("userEmail")} 
+                    </div>
+                    <div className="flex justify-end">
+                      <img src ={cross} alt="" className="w-6 cursor-pointer hover:scale-110 transition transition-duration-500ms" onClick={()=>setOpenProfil(false)} />
+                    </div>
+                  </div>
+                  <div className="flex-col gap-2 flex ">
+                    <div className="pt-8 flex justify-center ">
+                      <img
+                        src={user?.profilePicture ?? "/public/test.png"}
+                        alt=""
+                        className="rounded-full w-24 h-24 border-2 border-solid border-black -mt-10"
+                      />
+                    </div>
+                    
+                    <div className="flex justify-center">
+                      <div className="text-lg font-semibold">
+                        Bonjour, {localStorage.getItem("userFirstname")} !
+                      </div>
+                    </div>
+
+                    <div className="flex justify-center">
+                      <div className="border-2 border-primary border-opacity-50 rounded-full px-4 py-2 hover:bg-primary-hover">
+                        <a href="/feed">Gerer votre compte Esperanto</a>
+                      </div>
+                    </div>
+
+                    <div className=" flex justify-center bottom-0 items-center">
+                      <div className=" cursor-pointer w-1/2 hover:font-semibold text-center rounded-lg " onClick={() => removeSession()}>
+                        Se deconnecter
+                      </div>
+                    </div>
                   </div>
                 </div>
                 
 
-              </div>
             </div>
           </div>
         </nav>
