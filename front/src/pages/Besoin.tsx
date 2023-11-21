@@ -22,15 +22,15 @@ export interface Need {
   infrastructure: string;
   description: string;
   tags: Tag[];
+  typeNeed: string;
 }
 
 export default function Need() {
   let [message, setMessage] = useState<string>("");
   let [errorMessage, setErrorMessage] = useState<string>("");
   const navigate = useNavigate();
-  const location = useLocation();
+ 
 
-  const [isFormVisible, setIsFormVisible] = useState(false);
   const [allTags, setAllTags] = useState<Tag[]>([]);
   const [isSelectTagOpen, setIsSelectTagOpen] = useState(false);
 
@@ -41,9 +41,7 @@ export default function Need() {
   const [tags, setTags] = useState<Tag[]>([]);
   const [typeNeed, setTypeNeed] = useState<string>("idee");
 
-  const toggleFormVisibility = (): void => {
-    setIsFormVisible(!isFormVisible);
-  };
+  
 
   const toggleSelectVisibility = (): void => {
     setIsSelectTagOpen(!isSelectTagOpen);
@@ -62,6 +60,7 @@ export default function Need() {
       infrastructure: infrastructure,
       description: description,
       tags: tags,
+      typeNeed: typeNeed,
     };
     createNeed(CURRENT_USER, needData)
       .then((_data) => {
@@ -95,14 +94,14 @@ export default function Need() {
           </div>
           <div className="flex justify-evenly py-10">
             <div onClick={()=>setTypeNeed("idee")} className={typeNeed==="idee"                  
-                      ? "w-[35%] flex items-center justify-center py-6 rounded-xl bg-primary text-white"
-                      : "w-[35%] flex items-center justify-center border-primary border-4 border-opacity-50 py-6 rounded-xl hover:bg-primary-hover"
+                      ? "px-2 text-center w-[35%] flex items-center justify-center border-primary border-2 border-opacity-50 py-6 rounded-xl bg-primary text-white"
+                      : "px-2 text-center w-[35%] flex items-center justify-center border-primary border-2 border-opacity-50 py-6 rounded-xl hover:bg-primary-hover"
                   } >
               Vous avez une idée !
             </div>
             <div onClick={()=>setTypeNeed("projet")} className={typeNeed==="projet"                  
-                      ? "w-[35%] py-6 rounded-xl bg-primary text-white flex items-center justify-center"
-                      : "w-[35%] border-primary border-4 border-opacity-50 py-6 rounded-xl hover:bg-primary-hover flex items-center justify-center"
+                      ? "px-2 text-center w-[35%] flex items-center justify-center border-primary border-2 border-opacity-50 py-6 rounded-xl bg-primary text-white "
+                      : "px-2 text-center w-[35%] border-primary border-2 border-opacity-50 py-6 rounded-xl hover:bg-primary-hover flex items-center justify-center"
                   } >
               Vous avez un projet concret ! 
             </div>
