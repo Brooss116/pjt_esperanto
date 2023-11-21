@@ -38,6 +38,7 @@ const steps = [
   { label: Labels.Step1, isOptional: false },
   { label: Labels.Step2, isOptional: false },
   { label: Labels.Step3, isOptional: false },
+  { label: Labels.Step4, isOptional: false },
 ];
 
 export default function Register() {
@@ -446,7 +447,31 @@ export default function Register() {
                       </div>
                     )}
                   </div>
-                ) : null}
+                ) : steps[currentStepIndex]?.label === Labels.Step4  ? (
+                  <div>
+                    <div className="mb-4">Pourquoi utilisez vous <span className="text-primary"> Esperanto</span> ?</div>
+                    <div className="relative">
+                      <select
+                        id="role"
+                        name="role"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                        className={inputClassName}
+                      >
+                        <option value={Roles.HEALTH_ACTOR}>
+                          {Roles.HEALTH_ACTOR}
+                        </option>
+                        <option value={Roles.INDUSTRIAL}>
+                          {Roles.INDUSTRIAL}
+                        </option>
+                        
+                      </select>
+                      <label htmlFor="role" className={labelClassName}>
+                        Rôle *
+                      </label>
+                    </div>
+                  </div>
+                ) : (null)}
 
                 <div className="pt-4 flex items-center space-x-4">
                   {currentStepIndex > 0 &&

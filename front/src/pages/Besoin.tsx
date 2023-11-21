@@ -39,6 +39,7 @@ export default function Need() {
   const [type, setType] = useState<NeedType | string>(NeedType.Professional);
   const [infrastructure, setInfrastructure] = useState<string>("");
   const [tags, setTags] = useState<Tag[]>([]);
+  const [typeNeed, setTypeNeed] = useState<string>("idee");
 
   const toggleFormVisibility = (): void => {
     setIsFormVisible(!isFormVisible);
@@ -84,25 +85,27 @@ export default function Need() {
       });
   }, []);
 
-  useEffect(() => {
-    location.hash.includes("add-need") ? toggleFormVisibility() : "";
-  }, [location.hash]);
-  isFormVisible
-    ? document.querySelector("#add-need")?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "start",
-      })
-    : "";
 
   return (
-    <div className="bg-gray-100 py-6 flex flex-col justify-center pt-4 w-screen">
-      <div className="relative py-3  sm:mx-auto w-[50%] ">
-        {/* <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div> */}
-        {/* <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-3 sm:rounded-3xl"></div> */}
-        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20 ">
+    <div className="bg-gray-100 py-6 pt-4 w-screen">
+      <div className=" py-3  sm:mx-auto w-[50%] ">
+        <div className="px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20 ">
           <div>
             <h1 className="text-2xl font-semibold">Exprimer un besoin </h1>
+          </div>
+          <div className="flex justify-evenly py-10">
+            <div onClick={()=>setTypeNeed("idee")} className={typeNeed==="idee"                  
+                      ? "w-[35%] flex items-center justify-center py-6 rounded-xl bg-primary text-white"
+                      : "w-[35%] flex items-center justify-center border-primary border-4 border-opacity-50 py-6 rounded-xl hover:bg-primary-hover"
+                  } >
+              Vous avez une idée !
+            </div>
+            <div onClick={()=>setTypeNeed("projet")} className={typeNeed==="projet"                  
+                      ? "w-[35%] py-6 rounded-xl bg-primary text-white flex items-center justify-center"
+                      : "w-[35%] border-primary border-4 border-opacity-50 py-6 rounded-xl hover:bg-primary-hover flex items-center justify-center"
+                  } >
+              Vous avez un projet concret ! 
+            </div>
           </div>
           {errorMessage && (
             <div className="text-red-400 text-sm mb-4">{errorMessage}</div>
@@ -114,69 +117,125 @@ export default function Need() {
             className="flex flex-col gap-8 bg-white rounded-lg relative "
             id="add-need"
           >
-            <div
-              className="flex justify-between items-center w-full rounded-lg p-4"
-              onClick={toggleFormVisibility}
-            >
-              {/* <h3 className="text-sm pb-1">Ajouter un besoin</h3> */}
-              {/* <div className="flex justify-center items-center w-[35px] h-[35px] rounded-full cursor-pointer">
-                <img
-                  className="w-[30px] h-[30px]"
-                  src={
-                    isFormVisible ? "/src/assets/minus.png" : "/src/assets/plus.png"
-                  }
-                  alt="add"
-                />
-              </div> */}
-            </div>
+            
+            
 
-            <div className="flex flex-col gap-2 px-4 pb-4">
+
+            <div > {typeNeed==="idee" ?  
+            
+            // Partie idée
+            (
+              <div className="flex flex-col gap-2 px-4 pt-6 pb-2">
+                <FormInput
+                  id="title"
+                  type="text"
+                  label="Titre de votre idée"
+                  value={title}
+                  setValue={setTitlte}
+                />
+              
+                <FormInput
+                  id="description"
+                  type="textarea"
+                  label="Description de votre idée"
+                  value={description}
+                  setValue={setDescription}
+              
+                />
+                <div className="flex flex-col items-start justify-center mb-4">
+                  {tags.length > 0 ? (
+                    <h3 className="text-sm text-gray-400">Domaine d'expertise requis</h3>
+                  ) : (
+                    ""
+                  )}
+                  <div className="text-xxs flex flex-wrap mt-2 items-center ">
+                    {tags.map((tag) => (
+                        <span
+                          key={tag.id}
+                          className="bg-primary-100 rounded py-0.5 px-1 m-0.5"
+                        >
+                          {tag.name}
+                        </span>
+                      ))}
+                    {isSelectTagOpen && (
+                      <div>
+                        <select
+                          className="block w-full p-2 mt-1 border border-gray-300 rounded-md focus:ring text-[14px]"
+                          value={""}
+                          onChange={(e) => {
+                            const selectedTagId = e.target.value;
+                            const tag = allTags.find(
+                              (tag) => tag.id == parseInt(selectedTagId)
+                            );
+                            if (tag) {
+                              handleTagSelection(tag);
+                            }
+                          }}
+                        >
+                          <option value="">-- Sélectionnez un domaine d'expertise --</option>
+                          {allTags.map((tag) => (
+                            <option key={tag.id} value={tag.id}>
+                              {tag.name}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+              
+                    <a
+                      href="#"
+                      className="text-primary hover:font-semibold mt-[3px] py-0.5 px-1 m-0.5 flex "
+                      onClick={toggleSelectVisibility}
+                    >
+                      Ajouter un domaine d'expertise
+                    </a>
+                  </div>
+              
+                </div>
+                <div className="pt-4 flex items-center space-x-4">
+                  <button
+                    onClick={() => submitForm()}
+                    className="bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded focus:outline-none focus:shadow-outline text-sm"
+                  >
+                    Créer le besoin
+                  </button>
+                </div>
+              </div>
+              )
+
+
+
+
+              : 
+
+
+                              
+              //Partie projet
+
+              (
+              <div className="flex flex-col gap-2 px-4 pt-6 pb-2">
               <FormInput
                 id="title"
                 type="text"
-                label="Titre"
+                label="Titre de votre projet"
                 value={title}
                 setValue={setTitlte}
               />
-              {/* <div className="relative">
-                <select
-                  id="type"
-                  name="type"
-                  value={type}
-                  onChange={(e) => setType(e.target.value)}
-                  className="shadow-none peer placeholder-transparent h-10 w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600 text-sm"
-                >
-                  <option value={NeedType.Professional}>
-                    {NeedType.Professional}
-                  </option>
-                  <option value={NeedType.Material}>{NeedType.Material}</option>
-                  <option value={NeedType.Infrastructure}>
-                    {NeedType.Infrastructure}
-                  </option>
-                </select>
-                <label
-                  htmlFor="role"
-                  className="absolute left-0 -top-3.5 text-gray-600 peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 text-[12px] peer-focus:text-[12px] peer-placeholder-shown:text-sm"
-                >
-                  Rôle
-                </label>
-              </div> */}
+            
               <FormInput
                 id="infrastructure"
                 type="text"
-                label="Infrastructure"
+                label="Infrastructure utile à votre projet"
                 value={infrastructure}
                 setValue={setInfrastructure}
-                isOptional={false}
               />
               <FormInput
                 id="description"
                 type="textarea"
-                label="Description"
+                label="Description détaillée de votre projet"
                 value={description}
                 setValue={setDescription}
-                isOptional={false}
-                
+            
               />
               <div className="flex flex-col items-start justify-center mb-4">
                 {tags.length > 0 ? (
@@ -217,67 +276,17 @@ export default function Need() {
                       </select>
                     </div>
                   )}
-                  
+            
                   <a
                     href="#"
                     className="text-primary hover:font-semibold mt-[3px] py-0.5 px-1 m-0.5 flex "
                     onClick={toggleSelectVisibility}
                   >
-                    Ajouter un domaine d'expertise 
+                    Ajouter un domaine d'expertise
                   </a>
                 </div>
-              
+            
               </div>
-              {/* <div className="flex flex-col items-start justify-center mb-4">
-                {tags.length > 0 ? (
-                  <h3 className="text-sm text-gray-400">Ressources requises</h3>
-                ) : (
-                  ""
-                )}
-                <div className="text-xxs flex flex-wrap mt-2">
-                  {tags.map((tag) => (
-                      <span
-                        key={tag.id}
-                        className="bg-primary-100 rounded py-0.5 px-1 m-0.5"
-                      >
-                        {tag.name}
-                      </span>
-                    ))}
-                  {isSelectTagOpen && (
-                    <div>
-                      <select
-                        className="block w-full p-2 mt-1 border border-gray-300 rounded-md focus:ring text-[14px]"
-                        value={""}
-                        onChange={(e) => {
-                          const selectedTagId = e.target.value;
-                          const tag = allTags.find(
-                            (tag) => tag.id == parseInt(selectedTagId)
-                          );
-                          if (tag) {
-                            handleTagSelection(tag);
-                          }
-                        }}
-                      >
-                        <option value="">-- Sélectionnez une ressource --</option>
-                        {allTags.map((tag) => (
-                          <option key={tag.id} value={tag.id}>
-                            {tag.name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  )}
-                  
-                  <a
-                    href="#"
-                    className="text-primary hover:font-semibold mt-[3px] py-0.5 px-1 m-0.5"
-                    onClick={toggleSelectVisibility}
-                  >
-                    Ajouter une ressource
-                  </a>
-                </div>
-              
-              </div> */}
               <div className="pt-4 flex items-center space-x-4">
                 <button
                   onClick={() => submitForm()}
@@ -286,6 +295,7 @@ export default function Need() {
                   Créer le besoin
                 </button>
               </div>
+            </div>)}
             </div>
           </div>
         </div>
