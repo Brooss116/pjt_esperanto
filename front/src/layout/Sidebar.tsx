@@ -45,7 +45,7 @@ export default function Sidebar({
     setFilters(selectedFilters.filter((item) => item !== ""));
   }, [state]);
   return (
-      <form className={`p-2 w-60 h-screen fixed bg-white -mt-3 overflow-scroll `}>
+      <form className={`p-2 w-60 h-screen fixed bg-white -mt-3 overflow-scroll pt-16`}>
         <h2 className="flex items-center justify-center mb-4">
           <img src={filters} alt="" className="!w-4 mr-4" />
           Filtres

@@ -4,7 +4,7 @@ import Footer from "./layout/Footer"
 
 function App() {
   return (
-    <main className="mt-16 pt-12 bg-base relative">
+    <main className=" pt-10 bg-base relative">
       <Nav />
       <Outlet />
       {/* <Footer /> */}

@@ -37,11 +37,11 @@ export default function Login() {
           const userEmail = userData.email;
           const userFirstname = userData.firstname;
           const userLastname = userData.lastname;
-          console.log(userId);
-          console.log(userEmail);
-          console.log(userFirstname);
-          console.log(userLastname);
-          console.log("test");
+          // console.log(userId);
+          // console.log(userEmail);
+          // console.log(userFirstname);
+          // console.log(userLastname);
+          // console.log("test");
 
           localStorage.setItem("userId", userId); // Stockez l'ID de l'utilisateur dans le local storage
           localStorage.setItem("userEmail", userEmail); // Stockez l'e-mail de l'utilisateur dans le local storage

@@ -15,6 +15,8 @@ import Register from "./pages/Register.tsx";
 import Login from "./pages/Login.tsx";
 import Need from "./pages/Besoin.tsx";
 import Acceuil from "./pages/Accueil.tsx";
+import Resource from "./pages/resource.tsx";
+import Myneeds  from "./pages/mesBesoins.tsx";
 
 function isAuthenticated() {
   const userId = localStorage.getItem("userId"); // Récupérez l'ID de l'utilisateur à partir du local storage
@@ -39,16 +41,17 @@ const router = createBrowserRouter(
           index
           element={
             isAuthenticated() ? (
-              <Navigate to={"feed/actualites"} />
+              <Navigate to={"/besoin/mine"} />
             ) : (
               <Navigate to="/login" />
             )
           }
         ></Route>
+
         <Route
           path="feed"
           element={isAuthenticated() ? <Profil /> : <Navigate to="/login" />}
-        >
+          >
           <Route path="actualites" element={<Profil />} />
           <Route path="besoins" element={<Profil />} />
           <Route path="suivis" element={<Profil />}>
@@ -61,7 +64,8 @@ const router = createBrowserRouter(
             <Route path="besoins" element={<Profil />} />
           </Route>
         </Route>
-        {/* <Route path="search" element={<Search />}> */}
+        {/* <Route path="search" element={<Search />} /> */}
+
         <Route path="professionnels" element={<Search />}>
           <Route path="sante" element={<Search />} />
           <Route path="chercheur" element={<Search />} />
@@ -69,16 +73,20 @@ const router = createBrowserRouter(
         </Route>
         <Route
           path="besoin"
-          element={isAuthenticated() ? <Need /> : <Navigate to="/login" />}
-        />
+          > 
+          <Route path="mine" element={<Myneeds />} />
+          <Route path="exprimer" element={<Need />} />
+          <Route path="repondre" element={<Search />} />
+        </Route>
+        <Route path="ressource" element={<Resource />} />
 
-        {/*}
-          <Route path="infrastructures" element={<Search />}>
-            <Route path="sante" element={<Search />} />
-            <Route path="chercheur" element={<Search />} />
-            <Route path="industriel" element={<Search />} />
-          </Route> */}
-        {/* </Route> */}
+        
+        {/* <Route path="infrastructures" element={<Search />}>
+          <Route path="sante" element={<Search />} />
+          <Route path="chercheur" element={<Search />} />
+          <Route path="industriel" element={<Search />} />
+        </Route> */}
+        
         <Route
           path="user/:id"
           element={isAuthenticated() ? <User /> : <Navigate to="/login" />}

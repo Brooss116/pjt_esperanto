@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 
 type Tags = "healthActor" | "researcher" | "industrial" | "";
 
-export default function Search() {
+export default function Resource() {
   const location = useLocation();
   const pathname = location.pathname;
   const tags = {
@@ -81,7 +81,7 @@ export default function Search() {
           console.log(result.industrialsBySearch.rows);
           break;
         default:
-          setErrorMessage("Veuillez choisir une catégorie");
+          setErrorMessage("");
           setUsers(result.users);
           setAllUsers(result.users);
           setNoResult(result.users.length === 0);
@@ -123,26 +123,11 @@ export default function Search() {
         }
       />
       <div className="ml-64 pt-10">
-        <div className="flex">
-          {["Santé", "Industriel", "Chercheur"].map((role) => (
-            <NavLink
-              className={({ isActive }) =>
-                `flex-1 bg-white py-4 flex items-center justify-center cursor-pointer hover:bg-primary hover:text-white ${
-                  isActive ? "border-b-4 border-blue-500" : ""
-                }`
-              }
-              to={normalizeString(role)}
-              replace={true}
-              key={role}
-            >
-              {role}
-            </NavLink>
-          ))}
-        </div>
+        
         <div className="p-3">
-          <div className="flex items-center justify-center pb-2">
+          {/* <div className="flex items-center justify-center pb-2">
             {errorMessage}
-          </div>
+          </div> */}
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -163,7 +148,7 @@ export default function Search() {
             />
           </form>
 
-          <div className=" px-12 mt-24 w-full ">
+          <div className=" px-12 mt-24 w-full">
             {noResult ? (
               <h2 className="text-2xl text-center">Aucun résultat</h2>
             ) : pathname.split("/")[1] === "professionnels" ? (
