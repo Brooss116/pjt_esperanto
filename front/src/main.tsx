@@ -15,7 +15,7 @@ import Register from "./pages/Register.tsx";
 import Login from "./pages/Login.tsx";
 import Need from "./pages/Besoin.tsx";
 import Acceuil from "./pages/Accueil.tsx";
-import Resource from "./pages/resource.tsx";
+import Ressource from "./pages/ressource.tsx";
 import Myneeds  from "./pages/mesBesoins.tsx";
 
 function isAuthenticated() {
@@ -53,7 +53,7 @@ const router = createBrowserRouter(
           element={isAuthenticated() ? <Profil /> : <Navigate to="/login" />}
           >
           <Route path="actualites" element={<Profil />} />
-          <Route path="besoins" element={<Profil />} />
+          {/* <Route path="besoins" element={<Profil />} /> */}
           <Route path="suivis" element={<Profil />}>
             <Route path="abonnes" element={<Profil />} />
             <Route path="abonnements" element={<Profil />} />
@@ -74,11 +74,11 @@ const router = createBrowserRouter(
         <Route
           path="besoin"
           > 
-          <Route path="mine" element={<Myneeds />} />
-          <Route path="exprimer" element={<Need />} />
-          <Route path="repondre" element={<Search />} />
+          <Route path="mine" element={isAuthenticated() ? <Myneeds /> : <Navigate to="/login" />} /> 
+          <Route path="exprimer" element={isAuthenticated() ? <Need /> : <Navigate to="/login" />} />
+          <Route path="repondre" element={isAuthenticated() ? <Search /> : <Navigate to="/login" />} />
         </Route>
-        <Route path="ressource" element={<Resource />} />
+        <Route path="ressource" element={<Ressource />} />
 
         
         {/* <Route path="infrastructures" element={<Search />}>

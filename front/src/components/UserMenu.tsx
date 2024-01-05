@@ -13,17 +13,7 @@ export default function UserMenu() {
           }
         >
           Actualités
-        </NavLink>
-        <NavLink
-          to={"/feed/besoins"}
-          className={({ isActive }) =>
-            isActive
-              ? "w-full text-center bg-primary text-white text-xs flex justify-center items-center p-1"
-              : "w-full text-center hover:bg-primary hover:text-white text-xs flex justify-center items-center p-1"
-          }
-        >
-          Mes besoins
-        </NavLink>
+        </NavLink>        
         <NavLink
           to={"/feed/suivis"}
           className={({ isActive }) =>

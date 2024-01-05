@@ -37,7 +37,7 @@ enum Labels {
 const steps = [
   { label: Labels.Step1, isOptional: false },
   { label: Labels.Step2, isOptional: false },
-  { label: Labels.Step3, isOptional: false },
+  { label: Labels.Step3, isOptional: true },
   { label: Labels.Step4, isOptional: false },
 ];
 
@@ -52,11 +52,13 @@ export default function Register() {
   const [password1, setPassword1] = useState<string>("");
   const [password2, setPassword2] = useState<string>("");
   const [phoneNumber, setPhoneNumber] = useState<string>("");
+  const [city, setCity] = useState<string>("");
   const [role, setRole] = useState<string>(Roles.HEALTH_ACTOR);
   const [healthNetwork, setHealthNetwork] = useState<string>("");
   const [professionalStatus, setProfessionalStatus] = useState<string>("");
   const [experiences, setExperiences] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [whyEsperanto, setWhyEsperanto] = useState<string>("");
 
   const [careServiceType, setCareServiceType] = useState<string>("");
   const [supportService, setSupportService] = useState<string>("");
@@ -78,6 +80,7 @@ export default function Register() {
     client: ApolloClientCall,
   });
 
+  
   function actionForm(navigation: Navigation) {
     if (steps[currentStepIndex].label === Labels.Step1) {
       // if (firstName === "" || lastName === "" || email === "" || password1 === "" || password2 === "") {
@@ -231,14 +234,14 @@ export default function Register() {
                         label="Nom"
                         value={lastName}
                         setValue={setLastName}
-                        isOptional={true}
+                        isOptional={false}
                       ></FormInput>
                       <FormInput
                         id="firstName"
                         label="Prénom"
                         value={firstName}
                         setValue={setFirstName}
-                        isOptional={true}
+                        isOptional={false}
                       ></FormInput>
                     </div>
                     <div className="flex gap-4">
@@ -248,7 +251,7 @@ export default function Register() {
                         label="Email"
                         value={email}
                         setValue={setEmail}
-                        isOptional={true}
+                        isOptional={false}
                       ></FormInput>
                     </div>
                     <div className="flex gap-4">
@@ -258,7 +261,7 @@ export default function Register() {
                         label="Mot de passe"
                         value={password1}
                         setValue={setPassword1}
-                        isOptional={true}
+                        isOptional={false}
                       ></FormInput>
                       <FormInput
                         id="password2"
@@ -266,7 +269,7 @@ export default function Register() {
                         label="Répétition du mot de passe"
                         value={password2}
                         setValue={setPassword2}
-                        isOptional={true}
+                        isOptional={false}
                       ></FormInput>
                     </div>
                     <div>
@@ -289,6 +292,16 @@ export default function Register() {
                         label="Numéro de téléphone"
                         value={phoneNumber}
                         setValue={setPhoneNumber}
+                        isOptional={true}
+                      ></FormInput>
+                    </div>
+                    <div className="flex gap-4">
+                      <FormInput
+                        id=""
+                        type=""
+                        label="Ville d'exercice"
+                        value={city}
+                        setValue={setCity}
                         isOptional={true}
                       ></FormInput>
                     </div>
@@ -451,24 +464,13 @@ export default function Register() {
                   <div>
                     <div className="mb-4">Pourquoi utilisez vous <span className="text-primary"> Esperanto</span> ?</div>
                     <div className="relative">
-                      <select
-                        id="role"
-                        name="role"
-                        value={role}
-                        onChange={(e) => setRole(e.target.value)}
-                        className={inputClassName}
-                      >
-                        <option value={Roles.HEALTH_ACTOR}>
-                          {Roles.HEALTH_ACTOR}
-                        </option>
-                        <option value={Roles.INDUSTRIAL}>
-                          {Roles.INDUSTRIAL}
-                        </option>
-                        
-                      </select>
-                      <label htmlFor="role" className={labelClassName}>
-                        Rôle *
-                      </label>
+                      <FormInput
+                        id="professionalStatus"
+                        type="textarea"
+                        label=""
+                        value={whyEsperanto}
+                        setValue={setWhyEsperanto}
+                      ></FormInput>
                     </div>
                   </div>
                 ) : (null)}

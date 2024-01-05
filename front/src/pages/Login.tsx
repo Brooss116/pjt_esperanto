@@ -16,6 +16,12 @@ export default function Login() {
 
   const [logUser] = useMutation(LOG_USER, { client: ApolloClientCall });
 
+  const handleKeyDown = (e:any) => {
+    if (e.key === 'Enter') {
+        actionForm();   
+    }
+  }
+
   function actionForm() {
     setMessage("");
     setErrorMessage("");
@@ -81,7 +87,7 @@ export default function Login() {
                 {!errorMessage && message && (
                   <div className="text-primary-400 text-sm mb-4">{message}</div>
                 )}
-                <div className="flex flex-col gap-4">
+                <div className="flex flex-col gap-4" onKeyDown={handleKeyDown}>
                   <FormInput
                     id="email"
                     type="email"
@@ -89,6 +95,7 @@ export default function Login() {
                     value={email}
                     setValue={setEmail}
                     isOptional={false}
+                    // onkeydown={handleKeyDown}
                   ></FormInput>
                   <FormInput
                     id="password"
@@ -97,6 +104,7 @@ export default function Login() {
                     value={password}
                     setValue={setPassword}
                     isOptional={false}
+                    // onkeydown={handleKeyDown}
                   ></FormInput>
                 </div>
                 <div className="pt-4 flex flex-col items-center gap-2">

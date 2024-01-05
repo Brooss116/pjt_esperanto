@@ -5,10 +5,13 @@ interface FormInputProps {
     value: string;
     setValue: any;
     isOptional?: boolean;
+    onkeydown?: any;
 }
 
 export default function FormInput(props: FormInputProps) {
-    const { id, type = "text", label, value, setValue, isOptional = true } = props;
+    const { id, type = "text", label, value, setValue, isOptional = true,onkeydown = false } = props;
+
+    
 
     return (
         <div className="w-full relative" key={id}>
@@ -22,6 +25,7 @@ export default function FormInput(props: FormInputProps) {
                     placeholder={label}
                     cols={16}
                     autoComplete="off"
+                    onKeyDown={onkeydown}
                 ></textarea>
             ) : (
                 <input
@@ -33,6 +37,7 @@ export default function FormInput(props: FormInputProps) {
                     className="shadow-none peer placeholder-transparent w-full border-t-0 border-r-0 border-l-0 border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-blue-600 text-sm"
                     placeholder={label}
                     autoComplete="off"
+                    onKeyDown={onkeydown}
                 />
             )}
             <label

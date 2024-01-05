@@ -56,40 +56,7 @@ export default function Resource() {
       .toLowerCase(); // Convertit en minuscules
   }
 
-  useEffect(() => {
-    getSearchedUser(queries[tag ? tag : "default"], input).then((result) => {
-      switch (tag) {
-        case "healthActor":
-          setErrorMessage("");
-          setUsers(result.healthActorsBySearch.rows);
-          setAllUsers(result.healthActorsBySearch.rows);
-          setNoResult(result.healthActorsBySearch.count === 0);
-          console.log(result.healthActorsBySearch.rows);
-          break;
-        case "researcher":
-          setErrorMessage("");
-          setUsers(result.researchersBySearch.rows);
-          setAllUsers(result.researchersBySearch.rows);
-          setNoResult(result.researchersBySearch.count === 0);
-          console.log(result.researchersBySearch.rows);
-          break;
-        case "industrial":
-          setErrorMessage("");
-          setUsers(result.industrialsBySearch.rows);
-          setAllUsers(result.industrialsBySearch.rows);
-          setNoResult(result.industrialsBySearch.count === 0);
-          console.log(result.industrialsBySearch.rows);
-          break;
-        default:
-          setErrorMessage("");
-          setUsers(result.users);
-          setAllUsers(result.users);
-          setNoResult(result.users.length === 0);
-          console.log(result.users);
-          break;
-      }
-    });
-  }, [input, tag]);
+  
 
   useEffect(() => {
     if (filters.length !== 0) {
@@ -139,7 +106,7 @@ export default function Resource() {
               type="search"
               name="search"
               className=" bg-white !w-4/5"
-              placeholder="Rechercher un profil..."
+              placeholder="Rechercher une ressource..."
             />
             <input
               type="submit"
